@@ -90,11 +90,11 @@ This automation framework tests the **Sauce Demo** sample e-commerce application
 ## How to Run Tests
 
 ### Install dependencies
-```bash
+``bash
 npm install
-```bash
+``bash
 npx playwright test --ui
-```bash
+``bash
 npx playwright show-report
 
 ## Future Enhancements
