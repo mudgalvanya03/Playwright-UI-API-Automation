@@ -92,9 +92,7 @@ This automation framework tests the **Sauce Demo** sample e-commerce application
 ### Install dependencies
 ``bash
 npm install
-``bash
 npx playwright test --ui
-``bash
 npx playwright show-report
 
 ## Future Enhancements
