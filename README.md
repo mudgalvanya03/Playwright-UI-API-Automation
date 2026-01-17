@@ -90,10 +90,9 @@ This automation framework tests the **Sauce Demo** sample e-commerce application
 ## How to Run Tests
 
 ### Install dependencies
-``bash
-npm install
-npx playwright test --ui
-npx playwright show-report
+>npm install
+>npx playwright test --ui
+>npx playwright show-report
 
 ## Future Enhancements
 -API automation using ReqRes
