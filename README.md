@@ -95,11 +95,11 @@ This automation framework tests the **Sauce Demo** sample e-commerce application
 >npx playwright show-report
 
 ## Future Enhancements
--API automation using ReqRes
--GitHub Actions CI integration
--Cross-browser execution
--Test data management via fixtures
--Advanced reporting
+- API automation using ReqRes
+- GitHub Actions CI integration
+- Cross-browser execution
+- Test data management via fixtures
+- Advanced reporting
 
 ## Author
 Vanya
