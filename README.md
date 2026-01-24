@@ -3,6 +3,7 @@
 A scalable end-to-end automation framework built using **Playwright + TypeScript** for the **Sauce Demo e-commerce application** (https://www.saucedemo.com), covering UI workflows, cart management, and checkout validation using real-world testing strategies.
 
 This project demonstrates **production-style test design**, including Page Object Model (POM), data-driven testing, and clean E2E coverage.
+API Testing: Introduced API automation using Playwright, validating REST endpoints with contract and data integrity checks alongside existing UI tests.
 
 ---
 
@@ -95,7 +96,7 @@ This automation framework tests the **Sauce Demo** sample e-commerce application
 >npx playwright show-report
 
 ## Future Enhancements
-- API automation using ReqRes
+- API automation using JsonPlaceholder
 - GitHub Actions CI integration
 - Cross-browser execution
 - Test data management via fixtures
