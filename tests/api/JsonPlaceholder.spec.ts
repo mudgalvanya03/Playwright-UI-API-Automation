@@ -4,6 +4,7 @@ test.describe('API testing CRUD {GET, POST, PUT, DELETE} using JsonPlaceholder',
   test.use({
     baseURL: 'https://jsonplaceholder.typicode.com',
   });
+  
   test('GET posts list - happy path', async ({ request }) => {
     const response = await request.get('/posts');
 
@@ -19,6 +20,23 @@ test.describe('API testing CRUD {GET, POST, PUT, DELETE} using JsonPlaceholder',
     expect(firstPost).toHaveProperty('id');
     expect(firstPost).toHaveProperty('title');
     expect(firstPost).toHaveProperty('body');
+  }); 
+
+  test('POST create post - happy path', async ({request})=>{ 
+    const response =await request.post('/posts', {
+      data: {
+        title: 'API Testing with Playwright',
+        body: 'This is a sample post created via API automation',
+        userId: 1,
+      },
+    });
+    expect(response.status()).toBe(201);
+    const body = await response.json();
+
+    expect(body).toHaveProperty('id');
+    expect(body.title).toBe('API Testing with Playwright');
+    expect(body.body).toBe('This is a sample post created via API automation');
+    expect(body.userId).toBe(1);
   });
 });
 
