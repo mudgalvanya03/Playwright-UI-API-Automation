@@ -4,7 +4,11 @@ A scalable end-to-end automation framework built using **Playwright + TypeScript
 
 This project demonstrates **production-style test design**, including Page Object Model (POM), data-driven testing, and clean E2E coverage.
 
-API Testing: Introduced API automation using Playwright, validating REST endpoints with contract and data integrity checks alongside existing UI tests.
+## 🔧 API Automation
+
+This project also includes automated **API testing** using Playwright’s built-in API request capabilities.
+
+API tests are written using the `request` fixture and cover the full set of CRUD operations against a stable public test API (JSONPlaceholder).
 
 ---
 
@@ -20,25 +24,35 @@ API Testing: Introduced API automation using Playwright, validating REST endpoin
 ---
 ## Application Under Test
 
-This automation framework tests the **Sauce Demo** sample e-commerce application provided by Sauce Labs.
+This automation framework tests the **Sauce Demo** sample e-commerce application provided by Sauce Labs for UI.
 
 - **URL:** https://www.saucedemo.com
 - **Domain:** E-commerce (Shopping Cart & Checkout)
 - **Purpose:** Demonstrates real-world UI automation scenarios such as authentication, cart operations, and end-to-end checkout workflows.
+This automation framework tests the **JSON Placeholder** mock api application for API testing
+- **URL:** https://jsonplaceholder.typicode.com/
+- **Domain:** MOCK API application
+- **Purpose:** Demonstrates mock api automation scenarios such as GET, POST, PUT, PATCH, DELETE and negative scenarios
 
-## Project Structure
+---
+
+## 📁 Project Structure
+
 ├── pages/
-│ ├── AuthenticationPage.ts
-│ ├── InventoryPage.ts
-│ ├── CartPage.ts
-│ └── CheckoutPage.ts
+│   ├── AuthenticationPage.ts
+│   ├── InventoryPage.ts
+│   ├── CartPage.ts
+│   └── CheckoutPage.ts
 │
 ├── tests/
-│ ├── UI/
-│ │ ├── authentication.spec.ts
-│ │ ├── cart.spec.ts
-│ │ ├── inventory.spec.ts
-│ │ └── e2e-checkout.spec.ts
+│   ├── ui/
+│   │   ├── authentication.spec.ts
+│   │   ├── cart.spec.ts
+│   │   ├── inventory.spec.ts
+│   │   └── e2e-checkout.spec.ts
+│   │
+│   ├── api/
+│   │   └── JsonPlaceholder.spec.ts
 │
 ├── playwright.config.ts
 ├── package.json
@@ -77,6 +91,16 @@ This automation framework tests the **Sauce Demo** sample e-commerce application
 - Data-driven negative validation in a single test case
 
 ---
+### API Endpoints Covered
+
+- **GET /posts** — Retrieve a list of posts  
+- **GET /posts/:id** — Validate response for valid and invalid IDs  
+- **POST /posts** — Create a new post (happy and negative cases)  
+- **PUT /posts/:id** — Full update of a post  
+- **PATCH /posts/:id** — Partial update of a post  
+- **DELETE /posts/:id** — Delete a post  
+
+---
 
 ## Design Principles Followed
 
@@ -84,6 +108,7 @@ This automation framework tests the **Sauce Demo** sample e-commerce application
 - **Minimal E2E, maximum signal**
 - **Semantic locators where possible**
 - **Structural locators where necessary**
+- **All crud operations**
 - **Data-driven approach for form validations**
 - **Readable, maintainable test flows**
 
@@ -97,7 +122,6 @@ This automation framework tests the **Sauce Demo** sample e-commerce application
 >npx playwright show-report
 
 ## Future Enhancements
-- API automation using JsonPlaceholder
 - GitHub Actions CI integration
 - Cross-browser execution
 - Test data management via fixtures
