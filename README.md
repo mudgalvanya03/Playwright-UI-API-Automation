@@ -1,10 +1,11 @@
 # Playwright UI & API Automation Framework
 
+## UI Automation
 A scalable end-to-end automation framework built using **Playwright + TypeScript** for the **Sauce Demo e-commerce application** (https://www.saucedemo.com), covering UI workflows, cart management, and checkout validation using real-world testing strategies.
 
 This project demonstrates **production-style test design**, including Page Object Model (POM), data-driven testing, and clean E2E coverage.
 
-## 🔧 API Automation
+## API Automation
 
 This project also includes automated **API testing** using Playwright’s built-in API request capabilities.
 
@@ -29,6 +30,7 @@ This automation framework tests the **Sauce Demo** sample e-commerce application
 - **URL:** https://www.saucedemo.com
 - **Domain:** E-commerce (Shopping Cart & Checkout)
 - **Purpose:** Demonstrates real-world UI automation scenarios such as authentication, cart operations, and end-to-end checkout workflows.
+
 This automation framework tests the **JSON Placeholder** mock api application for API testing
 - **URL:** https://jsonplaceholder.typicode.com/
 - **Domain:** MOCK API application
