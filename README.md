@@ -131,5 +131,6 @@ This automation framework tests the **JSON Placeholder** mock api application fo
 
 ## Author
 Vanya
+
 SDET | QA Automation Engineer
 
