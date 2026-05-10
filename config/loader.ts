@@ -1,7 +1,8 @@
 
 import { EnvironmentConfig } from "./types";
+import { logger} from "../utils/logger";
 
-export class configLoader {
+export class ConfigLoader {
     static load (): EnvironmentConfig {
        const baseURL = process.env.BASE_URL;
        const ApiURL= process.env.API_URL;
@@ -9,12 +10,36 @@ export class configLoader {
        const timeoutMs = process.env.TIMEOUT_MS;
        const headless = process.env.HEADLESS;
 
-       if(!baseURL) throw new Error ("BASE URL is missing "); 
-       if(!ApiURL) throw new Error ("API URL is missing "); 
-       if(!Environment) throw new Error ("Environment is missing "); 
-       if(!timeoutMs) throw new Error ("Time out is missing "); 
-       if(!headless) throw new Error ("Headless is missing "); 
-       
+    if (!baseURL) {
+      logger.error("BASE_URL is missing");
+      throw new Error("BASE_URL is missing");
+    }
+
+    if (!ApiURL) {
+      logger.error("API_URL is missing");
+      throw new Error("API_URL is missing");
+    }
+
+    if (!Environment) {
+      logger.error("ENVIRONMENT is missing");
+      throw new Error("ENVIRONMENT is missing");
+    }
+
+    if (!timeoutMs) {
+      logger.error("TIMEOUT_MS is missing");
+      throw new Error("TIMEOUT_MS is missing");
+    }
+
+    if (!headless) {
+      logger.error("HEADLESS is missing");
+      throw new Error("HEADLESS is missing");
+    }
+
+    logger.info("Configuration loaded successfully", {
+      Environment,
+      baseURL
+    });
+
      return {
       baseURL: baseURL,
       ApiURL: ApiURL,
