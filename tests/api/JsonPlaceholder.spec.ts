@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-test.describe('API testing CRUD {GET, POST, PUT, DELETE} using JsonPlaceholder', async() =>{
+test.describe('API testing CRUD {GET, POST, PUT, PATCH, DELETE} using JsonPlaceholder', async() =>{
   test.use({
     baseURL: 'https://jsonplaceholder.typicode.com',
   });
