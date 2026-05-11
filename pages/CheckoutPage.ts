@@ -1,7 +1,8 @@
 import { Page, Locator } from '@playwright/test';
+import { BasePage } from './BasePage';
 
-export class CheckoutPage {
-  readonly page: Page;
+export class CheckoutPage extends BasePage{
+  //readonly page: Page;
   readonly checkoutButton: Locator;
   readonly firstName: Locator;
   readonly lastName: Locator;
@@ -10,13 +11,13 @@ export class CheckoutPage {
   readonly finishButton: Locator;
   readonly successHeader: Locator;
   readonly errorMessage: Locator;
-
+  
 
   constructor(page: Page) {
-    this.page = page;
-
+    //this.page = page;
+    super(page);
     this.checkoutButton = page.getByRole('button', { name: 'Checkout' });
-
+    
     this.firstName = page.getByPlaceholder('First Name');
     this.lastName = page.getByPlaceholder('Last Name');
     this.postalCode = page.getByPlaceholder('Zip/Postal Code');
@@ -27,5 +28,10 @@ export class CheckoutPage {
     this.successHeader = page.getByRole('heading', {
       name: /thank you for your order/i,});
     this.errorMessage = page.getByRole('heading', { name: /error/i });
+    
   }
+
+      async WaitForPageLoad(): Promise<void> {
+        await this.checkoutButton.waitFor({ state: 'visible', timeout: 10000 })
+    }
 }

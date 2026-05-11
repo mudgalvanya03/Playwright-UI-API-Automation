@@ -1,20 +1,25 @@
 import{Page, Locator} from '@playwright/test'
+import { BasePage } from './BasePage';
 
-export class InventoryPage{
-    readonly page: Page;
+export class InventoryPage extends BasePage{
+    //readonly page: Page;
     readonly inventoryContainer: Locator;
     readonly inventoryItems: Locator;
     readonly cartBadge: Locator;
     readonly sortdropdown: Locator;
 
     constructor(page: Page){
-        this.page = page;
+        //this.page = page;
+        super(page);
         this.inventoryContainer = page.locator('#inventory_container');
         this.inventoryItems = this.inventoryContainer.locator('.inventory_item');
         //this.cartBadge = page.getByTestId('shopping-cart-link'); not working
         this.cartBadge = page.locator('.shopping_cart_badge');
        this.sortdropdown = page.locator('[data-test="product-sort-container"]');
     }
+    async WaitForPageLoad(): Promise<void> {
+        await this.inventoryContainer.waitFor({ state: 'visible', timeout: 10000 })
+    }    
      productName(item: Locator): Locator {
     return item.locator('.inventory_item_name');
   }
