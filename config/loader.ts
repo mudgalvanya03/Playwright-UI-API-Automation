@@ -1,9 +1,12 @@
-
+import dotenv from 'dotenv';
 import { EnvironmentConfig } from "./types";
 import { logger} from "../utils/logger";
 
 export class ConfigLoader {
     static load (): EnvironmentConfig {
+        dotenv.config({
+            path: `./config/.env.${process.env.ENV ?? 'local'}`
+            });
        const baseURL = process.env.BASE_URL;
        const ApiURL= process.env.API_URL;
        const Environment = process.env.ENVIRONMENT;

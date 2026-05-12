@@ -49,7 +49,7 @@ test.describe('Authentication', () =>{
     const authPage = new AuthenticationPage(page);
     await authPage.navigate();
     await authPage.authenticate('standard_user', 'secret_sauce');
-    await expect(authPage.isInventoryVisible()).toBe(true)
+    expect(await authPage.isInventoryVisible()).toBe(true)
     await authPage.logout();
     await expect(page).toHaveURL('https://www.saucedemo.com/');
     });

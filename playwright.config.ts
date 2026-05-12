@@ -1,5 +1,8 @@
-import { defineConfig, devices } from '@playwright/test';
 
+import { defineConfig, devices } from '@playwright/test';
+import { ConfigLoader } from './config/loader';
+
+const config = ConfigLoader.load();
 /**
  * Read environment variables from file.
  * https://github.com/motdotla/dotenv
@@ -12,6 +15,7 @@ import { defineConfig, devices } from '@playwright/test';
  * See https://playwright.dev/docs/test-configuration.
  */
 export default defineConfig({
+  timeout: config.timeoutMs,
   testDir: './tests',
   /* Run tests in files in parallel */
   fullyParallel: true,
@@ -27,8 +31,10 @@ export default defineConfig({
   use: {
     /* Base URL to use in actions like `await page.goto('')`. */
     // baseURL: 'http://localhost:3000',
-
+    
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
+    baseURL: config.baseURL,
+    headless: config.headless,
     trace: 'on-first-retry',
   },
 

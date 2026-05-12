@@ -28,7 +28,7 @@ export class AuthenticationPage extends BasePage{
     }
 
     async navigate(): Promise<void>{
-        await this.page.goto('https://www.saucedemo.com/');
+        await this.page.goto('/');
     }
 
     async authenticate(username: string, password: string): Promise<void>{
@@ -40,7 +40,7 @@ export class AuthenticationPage extends BasePage{
     async loginWithoutCredential(): Promise<void>{
         await this.loginButton.click();
     }
-    
+
     async fillUsername(username: string): Promise<void> {
         await this.usernameInput.fill(username)
     }
