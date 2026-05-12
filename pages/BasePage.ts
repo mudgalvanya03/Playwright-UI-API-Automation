@@ -7,7 +7,7 @@ export abstract class BasePage{
         this.page = page;
     }
 
-    abstract WaitForPageLoad(): Promise<void>
+    abstract waitForPageLoad(): Promise<void>
 
     async NavigateTo(url: string){
         await this.page.goto(url);

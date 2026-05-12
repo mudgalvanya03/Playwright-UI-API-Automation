@@ -1,3 +1,5 @@
+/* THIS PAGE OBJECT MODEL WAS ONLY USED FOR VALIDATING THE ABSTRACT CLASS, METHOD AND LEARN HOW TO USE THEM.
+
 import { Locator } from "@playwright/test";
 import { BasePage } from "./BasePage";
 import { Page } from '@playwright/test';
@@ -27,7 +29,8 @@ export class LoginPage extends BasePage{
         return await this.errorMessage.innerText();
     }
 
-    async WaitForPageLoad(): Promise<void> {
+    async waitForPageLoad(): Promise<void> {
         await this.usernameInput.waitFor({ state: 'visible', timeout: 10000 })
     }
 }
+    */

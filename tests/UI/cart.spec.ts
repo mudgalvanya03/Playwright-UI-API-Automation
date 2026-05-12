@@ -1,53 +1,56 @@
-import{test, expect} from '@playwright/test'
-import { AuthenticationPage } from '../../pages/AuthenticationPage'
-import { InventoryPage } from '../../pages/InventoryPage'
-import { CartPage } from '../../pages/CartPage'
+import { test, expect } from '@playwright/test';
+import { AuthenticationPage } from '../../pages/AuthenticationPage';
+import { InventoryPage } from '../../pages/InventoryPage';
+import { CartPage } from '../../pages/CartPage';
 
-test.describe( 'Cart' , () =>{
-    
-    test('CART -TC01: Cart Pagae should show product', async({page}) =>{
-    const authPage = new AuthenticationPage(page);
-    const inventoryPage = new InventoryPage(page);
-    const cartPage = new CartPage(page);
+test.describe('Cart', () => {
 
-    await authPage.navigate();
-    await authPage.authenticate('standard_user', 'secret_sauce');
-    await expect(page).toHaveURL(/inventory/);
+    test('CART-TC01: Cart page should show product', async ({ page }) => {
 
-    const firstItem = inventoryPage.inventoryItems.first();
-    const Productname = await firstItem.locator('.inventory_item_name').innerText();
+        const authPage = new AuthenticationPage(page);
+        const inventoryPage = new InventoryPage(page);
+        const cartPage = new CartPage(page);
 
-    await inventoryPage.addToCartButton(firstItem).click();
-    await cartPage.navigateToCart();
-    await expect(page).toHaveURL(/cart/);
+        await authPage.navigate();
+        await authPage.authenticate('standard_user', 'secret_sauce');
 
-    await expect(cartPage.cartItems).toHaveCount(1);
-    await expect(cartPage.cartItemName).toHaveText(Productname);
-    await expect(cartPage.cartItemQuantity).toHaveText('1');
-    await expect(cartPage.cartItemPrice).toBeVisible();
+        await expect(page).toHaveURL(/inventory/);
 
-    }); 
+        const productName = await inventoryPage.getFirstProductName();
 
-    test('CART -TC02: Cart Pagae should remove product', async({page}) =>{
-    const authPage = new AuthenticationPage(page);
-    const inventoryPage = new InventoryPage(page);
-    const cartPage = new CartPage(page);
+        await inventoryPage.addFirstProductToCart();
+        await cartPage.navigateToCart();
 
-    await authPage.navigate();
-    await authPage.authenticate('standard_user', 'secret_sauce');
-    await expect(page).toHaveURL(/inventory/);
+        await expect(page).toHaveURL(/cart/);
 
-    const firstItem = inventoryPage.inventoryItems.first();
-    await inventoryPage.addToCartButton(firstItem).click();
-    await cartPage.navigateToCart();
-    await expect(page).toHaveURL(/cart/);
-
-    const cartItem = cartPage.cartItems.first();
-    await cartPage.removeButton(cartItem).click();
-
-    await expect(inventoryPage.cartBadge).not.toBeVisible();
-    await cartPage.ContinueShoppingButton.click();
-    await expect(page).toHaveURL(/inventory/);    
+        expect(await cartPage.getCartItemCount()).toBe(1);
+        expect(await cartPage.getCartItemName()).toBe(productName);
+        expect(await cartPage.getCartItemQuantity()).toBe('1');
+        expect(await cartPage.isCartItemPriceVisible()).toBe(true);
     });
 
+    test('CART-TC02: Cart page should remove product', async ({ page }) => {
+
+        const authPage = new AuthenticationPage(page);
+        const inventoryPage = new InventoryPage(page);
+        const cartPage = new CartPage(page);
+
+        await authPage.navigate();
+        await authPage.authenticate('standard_user', 'secret_sauce');
+
+        await expect(page).toHaveURL(/inventory/);
+
+        await inventoryPage.addFirstProductToCart();
+        await cartPage.navigateToCart();
+
+        await expect(page).toHaveURL(/cart/);
+
+        await cartPage.removeFirstItem();
+
+        expect(await inventoryPage.isCartBadgeVisible()).toBe(false);
+
+        await cartPage.clickContinueShopping();
+
+        await expect(page).toHaveURL(/inventory/);
+    });
 });

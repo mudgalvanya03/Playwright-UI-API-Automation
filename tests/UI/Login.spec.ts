@@ -1,3 +1,6 @@
+/* This Test case is only for testing when author was restructuring the POM
+
+
 import { LoginPage } from "../../pages/LoginPage";
 import { test, expect } from '@playwright/test'
 
@@ -8,3 +11,4 @@ test('should login successfully', async ({ page }) => {
   await loginPage.Login('standard_user', 'secret_sauce')
   await expect(page).toHaveURL(/inventory/)
 })
+*/
