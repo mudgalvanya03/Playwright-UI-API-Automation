@@ -11,7 +11,7 @@ export class InventoryPage extends BasePage {
     super(page);
 
     this.inventoryContainer =
-      page.locator('#inventory_container');
+      page.locator('[data-test="inventory-container"]');
 
     this.inventoryItems =
       this.inventoryContainer.locator('.inventory_item');
@@ -103,6 +103,20 @@ export class InventoryPage extends BasePage {
     }
 
     return prices;
+  }
+
+  async getAllProductNames(): Promise<string[]>{
+    const names: string[] =[];
+
+    const count= await this.inventoryItems.count();
+
+    for(let i =0; i<count ; i++){
+        const nameText= 
+            await this.inventoryItems.nth(i).locator('.inventory_item_name').innerText();
+        
+        names.push(String(nameText));
+    }
+    return names;
   }
 
   async areProductCardsVisible(): Promise<boolean> {

@@ -3,49 +3,33 @@ import { AuthenticationPage } from '../../pages/AuthenticationPage';
 import { InventoryPage } from '../../pages/InventoryPage';
 
 test.describe('Inventory', () => {
+    let inventoryPage : InventoryPage;
+    test.beforeEach(async ({page}) =>{
+        const auth = new AuthenticationPage(page);
+        await auth.navigate()
+        await auth.authenticate('standard_user', 'secret_sauce');
+        inventoryPage = new InventoryPage(page);
+        await inventoryPage.waitForPageLoad();
+        
+    });
 
     test('INV-TC01: Inventory page loading with products', async ({ page }) => {
-
-        const authPage = new AuthenticationPage(page);
-        const inventoryPage = new InventoryPage(page);
-
-        await authPage.navigate();
-        await authPage.authenticate('standard_user', 'secret_sauce');
-
-        expect(await authPage.isInventoryVisible()).toBe(true);
-
-        await expect(page).toHaveURL(/inventory/);
-
+        const auth = new AuthenticationPage(page);
+        expect(await auth.isInventoryVisible()).toBe(true);
         const productCount = await inventoryPage.getProductCount();
 
         expect(productCount).toBeGreaterThan(0);
     });
 
     test('INV-TC02: Product cards should be visible', async ({ page }) => {
-
-        const authPage = new AuthenticationPage(page);
-        const inventoryPage = new InventoryPage(page);
-
-        await authPage.navigate();
-        await authPage.authenticate('standard_user', 'secret_sauce');
-
-        expect(await authPage.isInventoryVisible()).toBe(true);
-
-        await expect(page).toHaveURL(/inventory/);
-
+        const auth = new AuthenticationPage(page);
+        expect(await auth.isInventoryVisible()).toBe(true);
         expect(await inventoryPage.areProductCardsVisible()).toBe(true);
     });
 
     test('INV-TC03: Add to cart and remove validation', async ({ page }) => {
-
-        const authPage = new AuthenticationPage(page);
-        const inventoryPage = new InventoryPage(page);
-
-        await authPage.navigate();
-        await authPage.authenticate('standard_user', 'secret_sauce');
-
-        expect(await authPage.isInventoryVisible()).toBe(true);
-
+        const auth = new AuthenticationPage(page);
+        expect(await auth.isInventoryVisible()).toBe(true);
         await inventoryPage.addFirstProductToCart();
 
         expect(await inventoryPage.isRemoveButtonVisible()).toBe(true);
@@ -58,15 +42,8 @@ test.describe('Inventory', () => {
     });
 
     test('INV-TC04: Product sorting by price (low to high)', async ({ page }) => {
-
-        const authPage = new AuthenticationPage(page);
-        const inventoryPage = new InventoryPage(page);
-
-        await authPage.navigate();
-        await authPage.authenticate('standard_user', 'secret_sauce');
-
-        await expect(page).toHaveURL(/inventory/);
-
+        const auth = new AuthenticationPage(page);
+        expect(await auth.isInventoryVisible()).toBe(true);
         await inventoryPage.sortBy('Price (low to high)');
 
         const prices = await inventoryPage.getAllPrices();
@@ -74,5 +51,16 @@ test.describe('Inventory', () => {
         const sortedPrices = [...prices].sort((a, b) => a - b);
 
         expect(prices).toEqual(sortedPrices);
+    });
+
+    test('INV-TC05: Product sorting by name ( A-Z )', async ({page}) =>{
+        const auth = new AuthenticationPage(page);
+        expect(await auth.isInventoryVisible()).toBe(true);
+        await inventoryPage.sortBy('Name (A to Z)');
+
+        const names = await inventoryPage.getAllProductNames();
+        const sortedNames = [...names].sort((a, b) => a.localeCompare(b));
+        expect(names).toEqual(sortedNames);
+
     });
 });

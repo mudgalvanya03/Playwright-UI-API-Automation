@@ -5,18 +5,21 @@ import { CartPage } from '../../pages/CartPage';
 import { CheckoutPage } from '../../pages/CheckoutPage';
 
 test.describe('E2E Checkout', () => {
+    let inventoryPage : InventoryPage;
+    test.beforeEach(async ({page}) =>{
+        const auth = new AuthenticationPage(page);
+        await auth.navigate()
+        await auth.authenticate('standard_user', 'secret_sauce');
+        inventoryPage = new InventoryPage(page);
+        inventoryPage.waitForPageLoad();
+    });
 
     test('E2E-TC01: User can complete checkout successfully', async ({ page }) => {
 
-        const authPage = new AuthenticationPage(page);
-        const inventoryPage = new InventoryPage(page);
         const cartPage = new CartPage(page);
         const checkoutPage = new CheckoutPage(page);
-
-        await authPage.navigate();
-        await authPage.authenticate('standard_user', 'secret_sauce');
-
-        await expect(page).toHaveURL(/inventory/);
+        const auth = new AuthenticationPage(page);
+        expect(await auth.isInventoryVisible()).toBe(true);
 
         await inventoryPage.addFirstProductToCart();
         await cartPage.navigateToCart();
@@ -46,13 +49,10 @@ test.describe('E2E Checkout', () => {
 
     test('E2E-TC02: Checkout validation for required fields', async ({ page }) => {
 
-        const authPage = new AuthenticationPage(page);
-        const inventoryPage = new InventoryPage(page);
         const cartPage = new CartPage(page);
         const checkoutPage = new CheckoutPage(page);
-
-        await authPage.navigate();
-        await authPage.authenticate('standard_user', 'secret_sauce');
+        const auth = new AuthenticationPage(page);
+        expect(await auth.isInventoryVisible()).toBe(true);
 
         await inventoryPage.addFirstProductToCart();
         await cartPage.navigateToCart();

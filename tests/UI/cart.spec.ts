@@ -4,17 +4,20 @@ import { InventoryPage } from '../../pages/InventoryPage';
 import { CartPage } from '../../pages/CartPage';
 
 test.describe('Cart', () => {
-
+    let inventoryPage : InventoryPage;
+    test.beforeEach(async ({page}) =>{
+        const auth = new AuthenticationPage(page);
+        await auth.navigate()
+        await auth.authenticate('standard_user', 'secret_sauce');
+        inventoryPage = new InventoryPage(page);
+        inventoryPage.waitForPageLoad();
+    });
+    
     test('CART-TC01: Cart page should show product', async ({ page }) => {
 
-        const authPage = new AuthenticationPage(page);
-        const inventoryPage = new InventoryPage(page);
         const cartPage = new CartPage(page);
-
-        await authPage.navigate();
-        await authPage.authenticate('standard_user', 'secret_sauce');
-
-        await expect(page).toHaveURL(/inventory/);
+        const auth = new AuthenticationPage(page);
+        expect(await auth.isInventoryVisible()).toBe(true);
 
         const productName = await inventoryPage.getFirstProductName();
 
@@ -31,14 +34,9 @@ test.describe('Cart', () => {
 
     test('CART-TC02: Cart page should remove product', async ({ page }) => {
 
-        const authPage = new AuthenticationPage(page);
-        const inventoryPage = new InventoryPage(page);
         const cartPage = new CartPage(page);
-
-        await authPage.navigate();
-        await authPage.authenticate('standard_user', 'secret_sauce');
-
-        await expect(page).toHaveURL(/inventory/);
+        const auth = new AuthenticationPage(page);
+        expect(await auth.isInventoryVisible()).toBe(true);
 
         await inventoryPage.addFirstProductToCart();
         await cartPage.navigateToCart();
