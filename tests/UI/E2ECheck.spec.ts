@@ -18,13 +18,19 @@ test.describe('E2E Checkout', () => {
 
         const cartPage = new CartPage(page);
         const checkoutPage = new CheckoutPage(page);
-        const auth = new AuthenticationPage(page);
-        expect(await auth.isInventoryVisible()).toBe(true);
+        //const auth = new AuthenticationPage(page);
+        //expect(await auth.isInventoryVisible()).toBe(true);
+        
+
+        const itemName = await inventoryPage.getFirstProductName();
 
         await inventoryPage.addFirstProductToCart();
         await cartPage.navigateToCart();
+        await cartPage.waitForPageLoad();
 
         await expect(page).toHaveURL(/cart/);
+        const itemNameInCart = await cartPage.getCartItemName()
+        expect(itemNameInCart).toBe(itemName);
 
         await checkoutPage.clickCheckout();
 

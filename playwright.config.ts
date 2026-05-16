@@ -16,6 +16,9 @@ const config = ConfigLoader.load();
  */
 export default defineConfig({
   timeout: config.timeoutMs,
+  expect: {
+    timeout: 5000
+  },
   testDir: './tests',
   /* Run tests in files in parallel */
   fullyParallel: true,
@@ -36,6 +39,8 @@ export default defineConfig({
     baseURL: config.baseURL,
     headless: config.headless,
     trace: 'on-first-retry',
+    screenshot: 'only-on-failure',
+    video: 'on-first-retry',
   },
 
   /* Configure projects for major browsers */
@@ -45,11 +50,11 @@ export default defineConfig({
       use: { ...devices['Desktop Chrome'] },
     },
 
-   /* {
+    {
       name: 'firefox',
       use: { ...devices['Desktop Firefox'] },
     },
-
+    /*
     {
       name: 'webkit',
       use: { ...devices['Desktop Safari'] },

@@ -12,6 +12,7 @@ export class ConfigLoader {
        const Environment = process.env.ENVIRONMENT;
        const timeoutMs = process.env.TIMEOUT_MS;
        const headless = process.env.HEADLESS;
+       const reqresApiKey = process.env.REQRES_API_KEY
 
     if (!baseURL) {
       logger.error("BASE_URL is missing");
@@ -42,13 +43,18 @@ export class ConfigLoader {
       Environment,
       baseURL
     });
+    if (!reqresApiKey) {
+        logger.error("REQRES_API_KEY is missing");
+        throw new Error("REQRES_API_KEY is missing");
+    }
 
      return {
       baseURL: baseURL,
       ApiURL: ApiURL,
       Environment: Environment as 'local' | 'staging' | 'Prod',
       timeoutMs: Number(timeoutMs),
-      headless: headless === "true"
+      headless: headless === "true",
+      reqresApiKey: reqresApiKey
     };
     }
 }
