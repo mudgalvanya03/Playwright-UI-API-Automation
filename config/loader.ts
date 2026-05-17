@@ -41,7 +41,8 @@ export class ConfigLoader {
 
     logger.info("Configuration loaded successfully", {
       Environment,
-      baseURL
+      baseURL,
+      ApiURL
     });
     if (!reqresApiKey) {
         logger.error("REQRES_API_KEY is missing");

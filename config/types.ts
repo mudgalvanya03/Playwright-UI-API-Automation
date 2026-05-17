@@ -3,6 +3,7 @@ export interface EnvironmentConfig {
     ApiURL : string,
     Environment : 'local' | 'staging' |'Prod',
     timeoutMs : number,
-    headless: boolean
+    headless: boolean,
+    reqresApiKey: string
 }
 

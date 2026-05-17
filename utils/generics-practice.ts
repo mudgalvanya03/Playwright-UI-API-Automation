@@ -76,14 +76,14 @@ function safeExtract<T extends object, K extends keyof T>( obj: T, key: K, fallb
 const blah3 = safeExtract({name: 'vanya'}, 'name', 'unknown')
 
 console.log(`Mix Everything ${blah3}`)
-
+/*
 interface PaginatedResponse<T>{
     data: T[],
     page: number,
     total: number
     totalPages: number
 }
-/*
+
 function paginate<T>(items: T[], page: number, perPage: number):PaginatedResponse<T>{
     const total = items.length;
     const totalPages = Math.ceil(total / perPage);
