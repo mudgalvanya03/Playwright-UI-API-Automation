@@ -1,5 +1,8 @@
 // Hello this file is not a part of Framework Testing, this is just a practice file for generics when author had to start working on APIClient files
 
+import { PaginatedResponse } from "../types/api/user.types";
+
+/*
 function identity<T>(name:T):T{
     return name;
 }
@@ -76,15 +79,15 @@ function safeExtract<T extends object, K extends keyof T>( obj: T, key: K, fallb
 const blah3 = safeExtract({name: 'vanya'}, 'name', 'unknown')
 
 console.log(`Mix Everything ${blah3}`)
-/*
+
 interface PaginatedResponse<T>{
     data: T[],
     page: number,
     total: number
     totalPages: number
 }
-
-function paginate<T>(items: T[], page: number, perPage: number):PaginatedResponse<T>{
+*/
+export function paginate<T>(items: T[], page: number, perPage: number):PaginatedResponse<T>{
     const total = items.length;
     const totalPages = Math.ceil(total / perPage);
     const startIndex = (page - 1) * perPage;
@@ -98,4 +101,4 @@ function paginate<T>(items: T[], page: number, perPage: number):PaginatedRespons
         totalPages: totalPages
     };   
 
-} */
+} 

@@ -10,12 +10,14 @@ export class ApiClient implements IApiClient{
     constructor( private readonly request: APIRequestContext, 
         private readonly apiURL: string,
         private readonly authManager?: AuthManager,
-        private readonly retryOptions?: RetryOptions){}
+        private readonly retryOptions?: RetryOptions,
+        private readonly defaultHeaders?: Record<string, string>){}
     
     private async buildHeaders(extraHeaders?: Record<string, string>): Promise<Record<string, string>> {
         const authHeaders = this.authManager? await this.authManager.getAuthHeaders(): {}
 
         return {
+            ...this.defaultHeaders,
            ...authHeaders,
             ...extraHeaders
         }
@@ -105,7 +107,7 @@ export class ApiClient implements IApiClient{
         return makeRequest()
     }
 
-    async delete<T>(url: string, headers?: Record<string, string>):Promise<T>{
+    async delete(url: string, headers?: Record<string, string>):Promise<void>{
         const finalHeaders = await this.buildHeaders(headers)
         logger.info("Sending delete Request", {url, method:'DELETE'});
         const makeRequest = async () => {const response = await this.request.delete(`${this.apiURL}${url}`,{ headers: finalHeaders });
@@ -115,9 +117,9 @@ export class ApiClient implements IApiClient{
         }
         
         logger.info(`[API Response] DELETE ${url} | Status: ${response.status()}`);
-        const data = await response.json() as T;
+        //const data = await response.json() as T;
 
-        return data;
+       // return data;
     }
         if (this.retryOptions) {
             return withRetry(makeRequest, this.retryOptions)

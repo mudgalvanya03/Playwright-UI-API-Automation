@@ -29,3 +29,20 @@ export interface UpdateUserRequest {
   name?: string
   job?: string
 }
+
+export interface PaginatedResponse<T>{
+    data: T[],
+    page: number,
+    total: number
+    totalPages: number
+}
+export interface EmptyCreateUserResponse {
+    id: string
+    createdAt: string
+}
+
+export interface UpdateUserResponse{
+    name: string
+    job: string
+    updatedAt: string
+}

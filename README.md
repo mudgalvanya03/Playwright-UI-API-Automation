@@ -9,7 +9,7 @@ This project demonstrates **production-style test design**, including Page Objec
 
 This project also includes automated **API testing** using Playwright’s built-in API request capabilities.
 
-API tests are written using the `request` fixture and cover the full set of CRUD operations against a stable public test API (JSONPlaceholder).
+API tests are written using the `request` fixture and cover the full set of CRUD operations against a stable public test API (ReqRes).
 
 ---
 
@@ -32,7 +32,7 @@ This automation framework tests the **Sauce Demo** sample e-commerce application
 - **Purpose:** Demonstrates real-world UI automation scenarios such as authentication, cart operations, and end-to-end checkout workflows.
 
 This automation framework tests the **JSON Placeholder** mock api application for API testing
-- **URL:** https://jsonplaceholder.typicode.com/
+- **URL:** https://reqres.in/api
 - **Domain:** MOCK API application
 - **Purpose:** Demonstrates mock api automation scenarios such as GET, POST, PUT, PATCH, DELETE and negative scenarios
 
