@@ -1,11 +1,8 @@
-import { test, expect, request as playwrightRequest, APIRequestContext } from '@playwright/test'
-import { ApiClient } from "../../utils/ApiClient";
-import { AuthManager } from "../../utils/AuthManager";
-import { ConfigLoader } from "../../config/loader";
 import { CreateUserRequest, CreateUserResponse, EmptyCreateUserResponse, GetUserResponse, PaginatedResponse, UpdateUserRequest, UpdateUserResponse, User } from '../../types/api/user.types';
 import { ApiError } from '../../utils/ApiError';
+import { test, expect } from '../fixtures/apiFixtures'
 
-
+/* Commenting this boilerplate, because I have created custom fixtures
 test.describe('Users API', ()=>{
     let client : ApiClient
     let authManager : AuthManager
@@ -31,10 +28,10 @@ test.describe('Users API', ()=>{
     test.afterAll(async () => {
         // dispose it yourself when done
          await apiContext.dispose()
-     })
+     }) */
 
-    test('API-TC01: Get user details successfully ', async () => {
-        const response = await client.get<GetUserResponse>('/users/2')
+    test('API-TC01: Get user details successfully ', async ({ apiClient }) => {
+        const response = await apiClient.get<GetUserResponse>('/users/2')
 
         expect(response.data.id).toBe(2)
         expect(typeof response.data.id).toBe('number');
@@ -45,8 +42,8 @@ test.describe('Users API', ()=>{
         expect(response.data.avatar).toContain('https');
     })
 
-    test('API-TC02: Get user list', async() =>{
-        const response = await client.get<PaginatedResponse<User>>('/users?page=1')
+    test('API-TC02: Get user list', async({ authenticatedClient}) =>{
+        const response = await authenticatedClient.get<PaginatedResponse<User>>('/users?page=1')
 
         expect(Array.isArray(response.data));
         expect(response.page).toBe(1);
@@ -55,11 +52,11 @@ test.describe('Users API', ()=>{
 
     })
 
-    test('API-TC03: Non existent user', async() =>{
+    test('API-TC03: Non existent user', async({ apiClient }) =>{
         // await expect (client.get<GetUserResponse>('/users/999')).rejects.toThrow(ApiError) OR
         // try and catch block where we can access the status code and method as well
         try{
-            await client.get<GetUserResponse>('/users/999')
+            await apiClient.get<GetUserResponse>('/users/999')
             throw new Error(
             'Should have thrown ApiError')
         }
@@ -71,12 +68,12 @@ test.describe('Users API', ()=>{
         }
     })
 
-    test('API-TC04: Post user', async()=>{
+    test('API-TC04: Post user', async({authenticatedClient})=>{
         const requestBody = {
             name: 'Vanya',
             job: 'SDET'
         }
-        const response = await client.post<CreateUserResponse, CreateUserRequest>('/users', requestBody)
+        const response = await authenticatedClient.post<CreateUserResponse, CreateUserRequest>('/users', requestBody)
 
         expect(typeof response.id).toBe('string')
         const newID = response.id.trim()
@@ -86,8 +83,8 @@ test.describe('Users API', ()=>{
         expect(new Date(response.createdAt).toString()).not.toBe('Invalid Date')
     })
 
-    test('API-TC05: Create user with empty body', async () => {
-        const response = await client.post<
+    test('API-TC05: Create user with empty body', async ({authenticatedClient}) => {
+        const response = await authenticatedClient.post<
             EmptyCreateUserResponse,
             Record<string, never>
         >('/users', {})
@@ -103,23 +100,23 @@ test.describe('Users API', ()=>{
         //expect(response.job).toBeUndefined()
     })
 
-    test('API-TC06: update user with Patch', async()=>{
+    test('API-TC06: update user with Patch', async({authenticatedClient})=>{
         const requestBody = {
             job: 'Senior SDET'
         }
-        const response = await client.patch<UpdateUserResponse,UpdateUserRequest>('/users/2', requestBody)
+        const response = await authenticatedClient.patch<UpdateUserResponse,UpdateUserRequest>('/users/2', requestBody)
         expect(typeof response.job).toBe('string')
         expect(response.job).toBe(requestBody.job)
         expect(typeof response.updatedAt).toBe('string')
         expect(new Date(response.updatedAt).toString()).not.toBe('Invalid Date')
     })
 
-    test('API-TC07: Full update user with put', async()=>{
+    test('API-TC07: Full update user with put', async({authenticatedClient})=>{
         const requestBody = {
             name: 'Vanya Mudgal',
             job: 'SDET III'
         }
-        const response = await client.put<UpdateUserResponse, UpdateUserRequest>('/users/2', requestBody)
+        const response = await authenticatedClient.put<UpdateUserResponse, UpdateUserRequest>('/users/2', requestBody)
         expect(typeof response.job).toBe('string')
         expect(response.job).toBe(requestBody.job)
         expect(typeof response.name).toBe('string')
@@ -128,7 +125,6 @@ test.describe('Users API', ()=>{
         expect(new Date(response.updatedAt).toString()).not.toBe('Invalid Date')
     })
 
-    test('API-TC08: Delete user', async () => {
-        await client.delete('/users/2')
+    test('API-TC08: Delete user', async ({authenticatedClient}) => {
+        await authenticatedClient.delete('/users/2')
     })
-});
