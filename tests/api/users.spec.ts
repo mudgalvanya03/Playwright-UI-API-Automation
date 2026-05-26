@@ -1,5 +1,7 @@
 import { CreateUserRequest, CreateUserResponse, EmptyCreateUserResponse, GetUserResponse, PaginatedResponse, UpdateUserRequest, UpdateUserResponse, User } from '../../types/api/user.types';
 import { ApiError } from '../../utils/ApiError';
+import { updateUserFactory } from '../../utils/factories/patchUserFactory'
+import { userFactory } from '../../utils/factories/userFactory';
 import { test, expect } from '../fixtures/apiFixtures'
 
 /* Commenting this boilerplate, because I have created custom fixtures
@@ -42,8 +44,8 @@ test.describe('Users API', ()=>{
         expect(response.data.avatar).toContain('https');
     })
 
-    test('API-TC02: Get user list', async({ authenticatedClient}) =>{
-        const response = await authenticatedClient.get<PaginatedResponse<User>>('/users?page=1')
+    test('API-TC02: Get user list', async({ apiClient}) =>{
+        const response = await apiClient.get<PaginatedResponse<User>>('/users?page=1')
 
         expect(Array.isArray(response.data));
         expect(response.page).toBe(1);
@@ -69,10 +71,9 @@ test.describe('Users API', ()=>{
     })
 
     test('API-TC04: Post user', async({authenticatedClient})=>{
-        const requestBody = {
-            name: 'Vanya',
-            job: 'SDET'
-        }
+        
+        const requestBody = userFactory.create({ name: 'Vanya', job: 'SDET' })
+
         const response = await authenticatedClient.post<CreateUserResponse, CreateUserRequest>('/users', requestBody)
 
         expect(typeof response.id).toBe('string')
@@ -101,9 +102,9 @@ test.describe('Users API', ()=>{
     })
 
     test('API-TC06: update user with Patch', async({authenticatedClient})=>{
-        const requestBody = {
-            job: 'Senior SDET'
-        }
+
+        const requestBody = updateUserFactory.create({ job: 'Senior Sdet'})
+
         const response = await authenticatedClient.patch<UpdateUserResponse,UpdateUserRequest>('/users/2', requestBody)
         expect(typeof response.job).toBe('string')
         expect(response.job).toBe(requestBody.job)
@@ -112,10 +113,9 @@ test.describe('Users API', ()=>{
     })
 
     test('API-TC07: Full update user with put', async({authenticatedClient})=>{
-        const requestBody = {
-            name: 'Vanya Mudgal',
-            job: 'SDET III'
-        }
+
+        const requestBody = userFactory.create({ name: 'Vanya Mudgal', job: 'SDET III' })
+
         const response = await authenticatedClient.put<UpdateUserResponse, UpdateUserRequest>('/users/2', requestBody)
         expect(typeof response.job).toBe('string')
         expect(response.job).toBe(requestBody.job)

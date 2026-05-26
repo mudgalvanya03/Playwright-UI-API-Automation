@@ -3,22 +3,16 @@ import { ApiClient } from '../../utils/ApiClient'
 import { ConfigLoader } from '../../config/loader'
 import { ApiError } from '../../utils/ApiError'
 import { LoginRequest, LoginResponse} from '../../types/api/auth.types'
-import { AuthManager } from '../../utils/AuthManager'
+import { loginFactory } from '../../utils/factories/loginFactory'
 
-test.describe('Users API', ()=>{
+test.describe('Auth API', ()=>{
     let client : ApiClient
-    let authManager : AuthManager
+    //let authManager : AuthManager
     let apiContext: APIRequestContext
 
     test.beforeAll(async () => {
         apiContext = await playwrightRequest.newContext()
         const config = ConfigLoader.load()
-        const baseClient = new ApiClient(apiContext, config.ApiURL)
-        authManager = new AuthManager(baseClient, {
-            email: 'eve.holt@reqres.in',
-            password: 'cityslicka'
-        }, config.reqresApiKey)
-
         client = new ApiClient(
             apiContext,
             config.ApiURL,
@@ -34,10 +28,8 @@ test.describe('Users API', ()=>{
 
     test('AUTH-TC01: Valid login returns token', async () => {
 
-        const requestBody: LoginRequest = {
-            email: 'eve.holt@reqres.in',
-            password: 'cityslicka'
-        }
+        const requestBody= loginFactory.create()
+        
 
         const response =
             await client.post<
@@ -57,10 +49,10 @@ test.describe('Users API', ()=>{
 
     test('AUTH-TC02: Invalid credentials throws error', async () => {
 
-        const requestBody: LoginRequest = {
+        const requestBody = loginFactory.create({
             email: 'wrong@email.com',
             password: 'wrongpassword'
-        }
+        })
 
         try {
 
