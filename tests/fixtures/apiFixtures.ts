@@ -6,7 +6,9 @@ import { ConfigLoader } from '../../config/loader'
 interface ApiFixtures {
   apiClient: ApiClient
   authenticatedClient: ApiClient
+  mockClient: ApiClient
 }
+
 
 export const test = base.extend<ApiFixtures>({
     
@@ -40,7 +42,15 @@ export const test = base.extend<ApiFixtures>({
         { 'x-api-key': config.reqresApiKey })
     await use(client)
     await apiContext.dispose()    
-  }
+  },
+
+  mockClient: async ({}, use) => {
+  const apiContext = await playwrightRequest.newContext()
+  const config = ConfigLoader.load()
+  const client = new ApiClient(apiContext, config.mockServerUrl)
+  await use(client)
+  await apiContext.dispose()
+}
 
 })
 

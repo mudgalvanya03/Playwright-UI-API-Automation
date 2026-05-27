@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {},
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -11,9 +10,13 @@
   "devDependencies": {
     "@playwright/test": "^1.57.0",
     "@types/dotenv": "^6.1.1",
-    "@types/node": "^25.6.2"
+    "@types/node": "^25.6.2",
+    "json-server": "^1.0.0-beta.15"
   },
   "dependencies": {
     "dotenv": "^17.4.2"
-  }
+  },
+  "scripts": {
+  "mock-server": "json-server --watch mock-server/db.json --port 3001"
+}
 }

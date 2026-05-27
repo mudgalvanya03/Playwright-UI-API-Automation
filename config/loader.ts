@@ -12,7 +12,8 @@ export class ConfigLoader {
        const Environment = process.env.ENVIRONMENT;
        const timeoutMs = process.env.TIMEOUT_MS;
        const headless = process.env.HEADLESS;
-       const reqresApiKey = process.env.REQRES_API_KEY
+       const reqresApiKey = process.env.REQRES_API_KEY;
+       const mockServerUrl= process.env.MOCK_SERVER_URL
 
     if (!baseURL) {
       logger.error("BASE_URL is missing");
@@ -38,11 +39,16 @@ export class ConfigLoader {
       logger.error("HEADLESS is missing");
       throw new Error("HEADLESS is missing");
     }
+    if(!mockServerUrl){
+      logger.error("MockServerURL is missing");
+      throw new Error("MockServerURL is missing");        
+    }
 
     logger.info("Configuration loaded successfully", {
       Environment,
       baseURL,
-      ApiURL
+      ApiURL,
+      mockServerUrl
     });
     if (!reqresApiKey) {
         logger.error("REQRES_API_KEY is missing");
@@ -55,7 +61,8 @@ export class ConfigLoader {
       Environment: Environment as 'local' | 'staging' | 'Prod',
       timeoutMs: Number(timeoutMs),
       headless: headless === "true",
-      reqresApiKey: reqresApiKey
+      reqresApiKey: reqresApiKey,
+      mockServerUrl: mockServerUrl
     };
     }
 }

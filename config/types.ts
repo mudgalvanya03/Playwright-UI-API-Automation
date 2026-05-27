@@ -4,6 +4,7 @@ export interface EnvironmentConfig {
     Environment : 'local' | 'staging' |'Prod',
     timeoutMs : number,
     headless: boolean,
-    reqresApiKey: string
+    reqresApiKey: string,
+    mockServerUrl: string
 }
 
