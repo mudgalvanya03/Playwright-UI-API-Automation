@@ -1,7 +1,9 @@
+import { GetUserResponseSchema } from '../../schemas/api/user.schema';
 import { CreateUserRequest, CreateUserResponse, EmptyCreateUserResponse, GetUserResponse, PaginatedResponse, UpdateUserRequest, UpdateUserResponse, User } from '../../types/api/user.types';
 import { ApiError } from '../../utils/ApiError';
 import { updateUserFactory } from '../../utils/factories/patchUserFactory'
 import { userFactory } from '../../utils/factories/userFactory';
+import { validateSchema } from '../../utils/validateSchema';
 import { test, expect } from '../fixtures/apiFixtures'
 
 /* Commenting this boilerplate, because I have created custom fixtures
@@ -128,3 +130,12 @@ test.describe('Users API', ()=>{
     test('API-TC08: Delete user', async ({authenticatedClient}) => {
         await authenticatedClient.delete('/users/2')
     })
+
+    test('API-TC09: Get user details with schema validation', async ({ apiClient }) => {
+    const rawResponse = await apiClient.get<unknown>('/users/2')
+    
+    const validated = validateSchema(GetUserResponseSchema, rawResponse)
+    
+    expect(validated.data.id).toBe(2)
+    expect(validated.data.email).toContain('@')
+ })

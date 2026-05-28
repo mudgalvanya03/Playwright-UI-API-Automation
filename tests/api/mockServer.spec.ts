@@ -1,6 +1,8 @@
 
+import { MockUserSchema } from "../../schemas/api/mock.schema";
 import { MockOrder, MockUser } from "../../types/api/mock.types";
 import { ApiError } from "../../utils/ApiError";
+import { validateSchema } from "../../utils/validateSchema";
 import { test, expect } from '../fixtures/apiFixtures'
 
 
@@ -51,3 +53,12 @@ test('MOCK-TC01: Create user then create order for that user - Complete CRUD for
         }
     } 
 })
+
+    test('MOCK-TC02: Get user details with schema validation', async ({ mockClient }) => {
+    const rawResponse = await mockClient.get<unknown>('/users/2')
+    
+    const validated = validateSchema(MockUserSchema, rawResponse)
+    
+    expect(validated.id).toBeDefined()
+    expect(validated.email).toContain('@')
+ })
