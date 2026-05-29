@@ -1,0 +1,18 @@
+◇ injected env (0) from config\.env.local // tip: ⌘ suppress logs { quiet: true }
+[2026-05-29T04:25:36.688Z] [INFO] [Framework] [Configuration loaded successfully]
+{
+  Environment: 'local',
+  baseURL: 'https://www.saucedemo.com',
+  ApiURL: 'https://reqres.in/api',
+  mockServerUrl: 'http://localhost:3001'
+}
+[2026-05-29T04:25:36.689Z] [INFO] [Framework] [Sending Post Request]
+{
+  url: '/login',
+  body: { email: 'eve.holt@reqres.in', password: 'cityslicka' },
+  method: 'POST'
+}
+[2026-05-29T04:25:36.971Z] [INFO] [Framework] [[API Response] POST /login | Status: 200]
+[2026-05-29T04:25:36.972Z] [INFO] [Framework] [Sending delete Request]
+{ url: '/users/2', method: 'DELETE' }
+[2026-05-29T04:25:37.133Z] [INFO] [Framework] [[API Response] DELETE /users/2 | Status: 204]

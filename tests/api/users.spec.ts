@@ -5,6 +5,7 @@ import { updateUserFactory } from '../../utils/factories/patchUserFactory'
 import { userFactory } from '../../utils/factories/userFactory';
 import { validateSchema } from '../../utils/validateSchema';
 import { test, expect } from '../fixtures/apiFixtures'
+import {epic,feature,story,severity,tag, step} from 'allure-js-commons'
 
 /* Commenting this boilerplate, because I have created custom fixtures
 test.describe('Users API', ()=>{
@@ -35,8 +36,15 @@ test.describe('Users API', ()=>{
      }) */
 
     test('API-TC01: Get user details successfully ', async ({ apiClient }) => {
+        await epic('User Management')
+        await feature('Get User')
+        await story('Single user retrieval')
+        await severity('critical')
+        await tag('API')
+        await tag('regression')
         const response = await apiClient.get<GetUserResponse>('/users/2')
 
+        await step('Verify response structure', async () => { 
         expect(response.data.id).toBe(2)
         expect(typeof response.data.id).toBe('number');
         expect(typeof response.data.email).toContain('string');
@@ -44,6 +52,8 @@ test.describe('Users API', ()=>{
         expect(typeof response.data.first_name).toBe('string');
         expect(typeof response.data.last_name).toBe('string');
         expect(response.data.avatar).toContain('https');
+        })
+        
     })
 
     test('API-TC02: Get user list', async({ apiClient}) =>{

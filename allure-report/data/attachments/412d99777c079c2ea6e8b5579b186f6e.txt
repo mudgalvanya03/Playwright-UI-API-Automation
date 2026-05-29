@@ -1,0 +1,11 @@
+◇ injected env (0) from config\.env.local // tip: ⌘ custom filepath { path: '/custom/path/.env' }
+[2026-05-29T04:25:36.805Z] [INFO] [Framework] [Configuration loaded successfully]
+{
+  Environment: 'local',
+  baseURL: 'https://www.saucedemo.com',
+  ApiURL: 'https://reqres.in/api',
+  mockServerUrl: 'http://localhost:3001'
+}
+[2026-05-29T04:25:36.806Z] [INFO] [Framework] [Sending GET request]
+{ url: '/users/2', method: 'GET' }
+[2026-05-29T04:25:36.971Z] [INFO] [Framework] [[API RESPONSE] GET /users/2 | Status: 200]

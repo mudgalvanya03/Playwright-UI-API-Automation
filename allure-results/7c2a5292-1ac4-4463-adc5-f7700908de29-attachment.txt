@@ -1,0 +1,14 @@
+◇ injected env (0) from config\.env.local // tip: ◈ secrets for agents [www.dotenvx.com]
+[2026-05-29T05:02:03.350Z] [INFO] [Framework] [Configuration loaded successfully]
+{
+  Environment: 'local',
+  baseURL: 'https://www.saucedemo.com',
+  ApiURL: 'https://reqres.in/api',
+  mockServerUrl: 'http://localhost:3001'
+}
+[2026-05-29T05:02:03.384Z] [INFO] [Framework] [Sending Post Request]
+{
+  url: '/login',
+  body: { email: 'eve.holt@reqres.in' },
+  method: 'POST'
+}

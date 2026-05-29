@@ -4,10 +4,18 @@ import { MockOrder, MockUser } from "../../types/api/mock.types";
 import { ApiError } from "../../utils/ApiError";
 import { validateSchema } from "../../utils/validateSchema";
 import { test, expect } from '../fixtures/apiFixtures'
+import {epic,feature,story,severity,tag} from 'allure-js-commons'
 
 
 test.describe.configure({ mode: 'serial' }) // to save from race condition
 test('MOCK-TC01: Create user then create order for that user - Complete CRUD for microservice testing', async ({ mockClient }) => {
+    await epic('Mockserver CRUD')
+    await feature('Create User, then Order')
+    await story('Single user retrieval then create order')
+    await severity('critical')
+    await tag('API')
+    await tag('regression')
+    
     const requestBody: MockUser = {
         name: 'Vanya Mudgal',
         job: 'SDET',

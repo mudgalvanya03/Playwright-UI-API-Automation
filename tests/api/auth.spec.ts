@@ -4,8 +4,10 @@ import { ConfigLoader } from '../../config/loader'
 import { ApiError } from '../../utils/ApiError'
 import { LoginRequest, LoginResponse} from '../../types/api/auth.types'
 import { loginFactory } from '../../utils/factories/loginFactory'
+import {epic,feature,story,severity,tag} from 'allure-js-commons'
 
 test.describe('Auth API', ()=>{
+    
     let client : ApiClient
     //let authManager : AuthManager
     let apiContext: APIRequestContext
@@ -27,7 +29,12 @@ test.describe('Auth API', ()=>{
      })
 
     test('AUTH-TC01: Valid login returns token', async () => {
-
+        await epic('Auth Login')
+        await feature('Auth Login')
+        await story('Valid login returns token')
+        await severity('critical')
+        await tag('API')
+        await tag('regression')
         const requestBody= loginFactory.create()
         
 
