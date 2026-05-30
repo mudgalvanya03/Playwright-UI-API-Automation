@@ -32,6 +32,7 @@ export class AuthenticationPage extends BasePage{
     }
 
     async authenticate(username: string, password: string): Promise<void>{
+        this.logger.info(`Logging in as: ${username}`)
         await this.usernameInput.fill(username);
         await this.passwordInput.fill(password);
         await this.loginButton.click();

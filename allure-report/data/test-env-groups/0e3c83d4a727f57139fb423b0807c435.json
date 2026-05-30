@@ -1,1 +1,1 @@
-{"id":"0e3c83d4a727f57139fb423b0807c435","fullName":"API/users.spec.ts:99:9","name":"API-TC05: Create user with empty body","status":"passed","testResultsByEnv":{"default":"a44b6f403dcfa7393564ac1ebca46298"}}
+{"id":"0e3c83d4a727f57139fb423b0807c435","fullName":"API/users.spec.ts:99:9","name":"API-TC05: Create user with empty body","status":"passed","testResultsByEnv":{"default":"1b24a08c0941f436f3caa1002613e78d"}}

@@ -1,34 +1,15 @@
-import { test, expect } from '@playwright/test';
-import { AuthenticationPage } from '../../pages/AuthenticationPage';
-import { InventoryPage } from '../../pages/InventoryPage';
-import { CartPage } from '../../pages/CartPage';
-import { CheckoutPage } from '../../pages/CheckoutPage';
+import { test, expect } from '../fixtures/uiFixtures'
+import { checkoutInfoFactory } from '../../utils/factories/uiFactory';
 
 test.describe('E2E Checkout', () => {
-    let inventoryPage : InventoryPage;
-    test.beforeEach(async ({page}) =>{
-        const auth = new AuthenticationPage(page);
-        await auth.navigate()
-        await auth.authenticate('standard_user', 'secret_sauce');
-        inventoryPage = new InventoryPage(page);
-        inventoryPage.waitForPageLoad();
-    });
 
-    test('E2E-TC01: User can complete checkout successfully', async ({ page }) => {
+    test('E2E-TC01: User can complete checkout successfully', async ({ loggedInPage, cartPage, checkoutPage, page }) => {
 
-        const cartPage = new CartPage(page);
-        const checkoutPage = new CheckoutPage(page);
-        //const auth = new AuthenticationPage(page);
-        //expect(await auth.isInventoryVisible()).toBe(true);
-        
+        const itemName = await loggedInPage.getFirstProductName();
 
-        const itemName = await inventoryPage.getFirstProductName();
-
-        await inventoryPage.addFirstProductToCart();
+        await loggedInPage.addFirstProductToCart();
         await cartPage.navigateToCart();
         await cartPage.waitForPageLoad();
-
-        await expect(page).toHaveURL(/cart/);
         const itemNameInCart = await cartPage.getCartItemName()
         expect(itemNameInCart).toBe(itemName);
 
@@ -36,10 +17,12 @@ test.describe('E2E Checkout', () => {
 
         await expect(page).toHaveURL(/checkout-step-one/);
 
+       const checkoutInfo = checkoutInfoFactory.create();
+
         await checkoutPage.fillCheckoutInfo(
-            'Vanya',
-            'Automation',
-            '560001'
+            checkoutInfo.firstName,
+            checkoutInfo.lastName,
+            checkoutInfo.postalCode
         );
 
         await checkoutPage.clickContinue();
@@ -53,14 +36,9 @@ test.describe('E2E Checkout', () => {
         await expect(page).toHaveURL(/checkout-complete/);
     });
 
-    test('E2E-TC02: Checkout validation for required fields', async ({ page }) => {
+    test('E2E-TC02: Checkout validation for required fields', async ({ loggedInPage, cartPage, checkoutPage }) => {
 
-        const cartPage = new CartPage(page);
-        const checkoutPage = new CheckoutPage(page);
-        const auth = new AuthenticationPage(page);
-        expect(await auth.isInventoryVisible()).toBe(true);
-
-        await inventoryPage.addFirstProductToCart();
+        await loggedInPage.addFirstProductToCart();
         await cartPage.navigateToCart();
         await checkoutPage.clickCheckout();
 

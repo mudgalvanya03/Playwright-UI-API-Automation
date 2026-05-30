@@ -1,0 +1,11 @@
+◇ injected env (0) from config\.env.local // tip: ⌘ suppress logs { quiet: true }
+[2026-05-30T05:08:36.909Z] [INFO] [Framework] [Configuration loaded successfully]
+{
+  Environment: 'local',
+  baseURL: 'https://www.saucedemo.com',
+  ApiURL: 'https://reqres.in/api',
+  mockServerUrl: 'http://localhost:3001'
+}
+[2026-05-30T05:08:36.909Z] [INFO] [Framework] [Sending GET request]
+{ url: '/users/2', method: 'GET' }
+[2026-05-30T05:08:37.204Z] [INFO] [Framework] [[API RESPONSE] GET /users/2 | Status: 200]

@@ -1,0 +1,15 @@
+◇ injected env (0) from config\.env.local // tip: ⌘ multiple files { path: ['.env.local', '.env'] }
+[2026-05-30T05:08:35.772Z] [INFO] [Framework] [Configuration loaded successfully]
+{
+  Environment: 'local',
+  baseURL: 'https://www.saucedemo.com',
+  ApiURL: 'https://reqres.in/api',
+  mockServerUrl: 'http://localhost:3001'
+}
+[2026-05-30T05:08:35.926Z] [INFO] [Framework] [Sending Post Request]
+{
+  url: '/login',
+  body: { email: 'eve.holt@reqres.in', password: 'cityslicka' },
+  method: 'POST'
+}
+[2026-05-30T05:08:36.345Z] [INFO] [Framework] [[API Response] POST /login | Status: 200]

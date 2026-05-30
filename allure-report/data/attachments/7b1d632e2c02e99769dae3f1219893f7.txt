@@ -1,0 +1,30 @@
+◇ injected env (0) from config\.env.local // tip: ⌘ custom filepath { path: '/custom/path/.env' }
+[2026-05-30T05:08:35.939Z] [INFO] [Framework] [Configuration loaded successfully]
+{
+  Environment: 'local',
+  baseURL: 'https://www.saucedemo.com',
+  ApiURL: 'https://reqres.in/api',
+  mockServerUrl: 'http://localhost:3001'
+}
+[2026-05-30T05:08:36.010Z] [INFO] [Framework] [Sending Post Request]
+{
+  url: '/users',
+  body: { name: 'Vanya Mudgal', job: 'SDET', email: 'vanya@test.com' },
+  method: 'POST'
+}
+[2026-05-30T05:08:36.048Z] [INFO] [Framework] [[API Response] POST /users | Status: 201]
+[2026-05-30T05:08:36.054Z] [INFO] [Framework] [Sending Post Request]
+{
+  url: '/orders',
+  body: { userId: '1m7nbphkYbE', product: 'laptop', status: 'delivered' },
+  method: 'POST'
+}
+[2026-05-30T05:08:36.063Z] [INFO] [Framework] [[API Response] POST /orders | Status: 201]
+[2026-05-30T05:08:36.066Z] [INFO] [Framework] [Sending GET request]
+{ url: '/orders/DIgC9IIeMgk', method: 'GET' }
+[2026-05-30T05:08:36.070Z] [INFO] [Framework] [[API RESPONSE] GET /orders/DIgC9IIeMgk | Status: 200]
+[2026-05-30T05:08:36.072Z] [INFO] [Framework] [Sending delete Request]
+{ url: '/users/1m7nbphkYbE', method: 'DELETE' }
+[2026-05-30T05:08:36.085Z] [INFO] [Framework] [[API Response] DELETE /users/1m7nbphkYbE | Status: 200]
+[2026-05-30T05:08:36.085Z] [INFO] [Framework] [Sending GET request]
+{ url: '/users/1m7nbphkYbE', method: 'GET' }

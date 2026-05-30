@@ -1,12 +1,14 @@
 import {test, expect} from '@playwright/test'
 import { AuthenticationPage } from '../../pages/AuthenticationPage'
+import { standardUserFactory, lockedUserFactory, errorUserFactory } from '../../utils/factories/uiFactory'
 
 test.describe('Authentication', () =>{
 
     test('Auth-TC01: Standard user Authentication- happy path', async ({page}) =>{
         const authpage = new AuthenticationPage(page)
         await authpage.navigate();
-        await authpage.authenticate('standard_user', 'secret_sauce');
+        const creds = standardUserFactory.create()
+        await authpage.authenticate(creds.username, creds.password)
         expect(await authpage.isInventoryVisible()).toBe(true)
         await expect(page).toHaveURL(/inventory/)
     });
@@ -14,7 +16,8 @@ test.describe('Authentication', () =>{
     test('Auth-TC01: Incorrect/error user Authentication- Negative scenario', async({page}) => {
         const authpage = new AuthenticationPage(page)
         await authpage.navigate()
-        await authpage.authenticate('myerroruser','secret_sauce')
+        const creds = errorUserFactory.create()
+        await authpage.authenticate(creds.username, creds.password)
         expect(await authpage.isErrorVisible()).toBe(true)
         await expect(page).not.toHaveURL(/inventory/)
     });
@@ -22,7 +25,8 @@ test.describe('Authentication', () =>{
     test('Auth-TC03: Locked out user Authentication- Negative scenario', async({page}) =>{
         const authPage = new AuthenticationPage(page)
         await authPage.navigate()
-        await authPage.authenticate('locked_out_user', 'secret_sauce')
+        const creds = lockedUserFactory.create()
+        await authPage.authenticate(creds.username, creds.password)
         expect(await authPage.isErrorVisible()).toBe(true)
         expect( await authPage.getErrorMessage()).toContain('locked out')
     });
@@ -48,7 +52,8 @@ test.describe('Authentication', () =>{
     test('Auth-TC06: User Logout Authentication', async({page}) => {
     const authPage = new AuthenticationPage(page);
     await authPage.navigate();
-    await authPage.authenticate('standard_user', 'secret_sauce');
+    const creds = standardUserFactory.create()
+    await authPage.authenticate(creds.username, creds.password)
     expect(await authPage.isInventoryVisible()).toBe(true)
     await authPage.logout();
     await expect(page).toHaveURL('https://www.saucedemo.com/');
