@@ -1,0 +1,11 @@
+◇ injected env (0) from config\.env.local // tip: ⌘ suppress logs { quiet: true }
+[2026-06-01T05:16:50.101Z] [INFO] [Framework] [Configuration loaded successfully]
+{
+  Environment: 'local',
+  baseURL: 'https://www.saucedemo.com',
+  ApiURL: 'https://reqres.in/api',
+  mockServerUrl: 'http://localhost:3001'
+}
+[2026-06-01T05:16:50.102Z] [INFO] [Framework] [Sending Post Request]
+{ url: '/users', body: { name: 'Vanya', job: 'SDET' }, method: 'POST' }
+[2026-06-01T05:16:51.283Z] [INFO] [Framework] [[API Response] POST /users | Status: 201]

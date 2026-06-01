@@ -1,0 +1,4 @@
+[2026-06-01T05:16:51.313Z] [ERROR] [Framework] [[API ERROR] /users | Status: 503]
+[2026-06-01T05:16:51.314Z] [WARN] [Framework] [Attempt 1 failed: POST request failed]
+[2026-06-01T05:16:51.532Z] [ERROR] [Framework] [[API ERROR] /users | Status: 503]
+[2026-06-01T05:16:51.532Z] [WARN] [Framework] [Attempt 2 failed: POST request failed]
