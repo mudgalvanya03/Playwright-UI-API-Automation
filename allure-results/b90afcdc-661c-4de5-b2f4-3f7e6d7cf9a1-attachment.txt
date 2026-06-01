@@ -1,0 +1,16 @@
+◇ injected env (0) from config\.env.local // tip: ⌘ multiple files { path: ['.env.local', '.env'] }
+[2026-06-01T02:44:04.083Z] [INFO] [Framework] [Configuration loaded successfully]
+{
+  Environment: 'local',
+  baseURL: 'https://www.saucedemo.com',
+  ApiURL: 'https://reqres.in/api',
+  mockServerUrl: 'http://localhost:3001'
+}
+[2026-06-01T02:44:04.084Z] [INFO] [Framework] [Sending GET request]
+{ url: '/users/2', method: 'GET' }
+[2026-06-01T02:44:04.547Z] [INFO] [Framework] [[API RESPONSE] GET /users/2 | Status: 200]
+
+=== CONTRACT VIOLATIONS ===
+[
+  'data.nonExistentField - Invalid input: expected string, received undefined'
+]

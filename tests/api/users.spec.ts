@@ -1,8 +1,8 @@
 import { GetUserResponseSchema } from '../../schemas/api/user.schema';
 import { CreateUserRequest, CreateUserResponse, EmptyCreateUserResponse, GetUserResponse, PaginatedResponse, UpdateUserRequest, UpdateUserResponse, User } from '../../types/api/user.types';
-import { ApiError } from '../../utils/ApiError';
 import { updateUserFactory } from '../../utils/factories/patchUserFactory'
 import { userFactory } from '../../utils/factories/userFactory';
+import { logger } from '../../utils/logger';
 import { validateSchema } from '../../utils/validateSchema';
 import { test, expect } from '../fixtures/apiFixtures'
 import {epic,feature,story,severity,tag, step} from 'allure-js-commons'
@@ -74,11 +74,11 @@ test.describe('Users API', ()=>{
             throw new Error(
             'Should have thrown ApiError')
         }
-        catch(error){
-            if(error instanceof ApiError){
-                expect(error.statusCode).toBe(404)
-                expect(error.method).toBe('GET')
+        catch(e: unknown){
+            if(e instanceof Error){
+                logger.error(e.message);
             }
+            throw e;
         }
     })
 

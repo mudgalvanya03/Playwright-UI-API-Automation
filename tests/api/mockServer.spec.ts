@@ -1,7 +1,7 @@
 
 import { MockUserSchema } from "../../schemas/api/mock.schema";
 import { MockOrder, MockUser } from "../../types/api/mock.types";
-import { ApiError } from "../../utils/ApiError";
+import { logger } from "../../utils/logger";
 import { validateSchema } from "../../utils/validateSchema";
 import { test, expect } from '../fixtures/apiFixtures'
 import {epic,feature,story,severity,tag} from 'allure-js-commons'
@@ -15,7 +15,7 @@ test('MOCK-TC01: Create user then create order for that user - Complete CRUD for
     await severity('critical')
     await tag('API')
     await tag('regression')
-    
+
     const requestBody: MockUser = {
         name: 'Vanya Mudgal',
         job: 'SDET',
@@ -54,12 +54,12 @@ test('MOCK-TC01: Create user then create order for that user - Complete CRUD for
         throw new Error(
             'Should have thrown ApiError'
         )
-    } catch(error: unknown) {
-        if(error instanceof ApiError) {
-            expect(error.statusCode).toBe(404)
-            expect(error.method).toBe('GET')
+    } catch(e: unknown){
+            if(e instanceof Error){
+                logger.error(e.message);
+            }
+            throw e;
         }
-    } 
 })
 
     test('MOCK-TC02: Get user details with schema validation', async ({ mockClient }) => {

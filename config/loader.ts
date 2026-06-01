@@ -7,6 +7,7 @@ export class ConfigLoader {
         dotenv.config({
             path: `./config/.env.${process.env.ENV ?? 'local'}`
             });
+            
        const baseURL = process.env.BASE_URL;
        const ApiURL= process.env.API_URL;
        const Environment = process.env.ENVIRONMENT;

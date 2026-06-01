@@ -1,0 +1,27 @@
+◇ injected env (0) from config\.env.local // tip: ⌘ override existing { override: true }
+[2026-06-01T02:44:04.100Z] [INFO] [Framework] [Configuration loaded successfully]
+{
+  Environment: 'local',
+  baseURL: 'https://www.saucedemo.com',
+  ApiURL: 'https://reqres.in/api',
+  mockServerUrl: 'http://localhost:3001'
+}
+[2026-06-01T02:44:04.101Z] [INFO] [Framework] [Sending GET request]
+{ url: '/users/2', method: 'GET' }
+[2026-06-01T02:44:04.545Z] [INFO] [Framework] [[API RESPONSE] GET /users/2 | Status: 200]
+[2026-06-01T02:44:04.549Z] [INFO] [Framework] [Sending GET request]
+{ url: '/users', method: 'GET' }
+[2026-06-01T02:44:05.006Z] [INFO] [Framework] [[API RESPONSE] GET /users | Status: 200]
+[2026-06-01T02:44:05.009Z] [INFO] [Framework] [Sending Post Request]
+{
+  url: '/users',
+  body: { name: 'Contract Test User', job: 'QA' },
+  method: 'POST'
+}
+[2026-06-01T02:44:05.411Z] [INFO] [Framework] [[API Response] POST /users | Status: 201]
+
+=== CONTRACT SUITE RESULTS ===
+{ contract: 'GET /users/:id', passed: true, violations: [] }
+{ contract: 'GET /users', passed: true, violations: [] }
+{ contract: 'POST /users', passed: true, violations: [] }
+Pass: 3 | Fail: 0

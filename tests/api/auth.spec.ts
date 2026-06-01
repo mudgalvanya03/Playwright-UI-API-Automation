@@ -5,6 +5,7 @@ import { ApiError } from '../../utils/ApiError'
 import { LoginRequest, LoginResponse} from '../../types/api/auth.types'
 import { loginFactory } from '../../utils/factories/loginFactory'
 import {epic,feature,story,severity,tag} from 'allure-js-commons'
+import { logger } from '../../utils/logger'
 
 test.describe('Auth API', ()=>{
     
@@ -72,15 +73,11 @@ test.describe('Auth API', ()=>{
                 'Should have thrown ApiError'
             )
 
-        } catch (error: unknown) {
-
-            if (error instanceof ApiError) {
-                expect(error.statusCode)
-                    .toBe(400)
-
-                expect(error.method)
-                    .toBe('POST')
+        } catch(e: unknown){
+            if(e instanceof Error){
+                logger.error(e.message);
             }
+            throw e;
         }
     })
 

@@ -1,0 +1,10 @@
+◇ injected env (0) from config\.env.local // tip: ◈ secrets for agents [www.dotenvx.com]
+[2026-06-01T02:40:04.307Z] [INFO] [Framework] [Configuration loaded successfully]
+{
+  Environment: 'local',
+  baseURL: 'https://www.saucedemo.com',
+  ApiURL: 'https://reqres.in/api',
+  mockServerUrl: 'http://localhost:3001'
+}
+[2026-06-01T02:40:04.309Z] [INFO] [Framework] [Sending GET request]
+{ url: '/users/2', method: 'GET' }

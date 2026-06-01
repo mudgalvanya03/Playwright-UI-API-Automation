@@ -7,6 +7,6 @@ const USER_DEFAULTS ={
     job: 'QA Engineer',
     //email: 'test@example.com',
     //role: 'viewer'
-} as const
+} satisfies CreateUserRequest;
 
 export const userFactory = new DataFactory<CreateUserRequest>(USER_DEFAULTS)
