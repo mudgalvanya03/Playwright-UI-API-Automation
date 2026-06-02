@@ -1,5 +1,6 @@
 import { GetUserResponseSchema } from '../../schemas/api/user.schema';
 import { CreateUserRequest, CreateUserResponse, EmptyCreateUserResponse, GetUserResponse, PaginatedResponse, UpdateUserRequest, UpdateUserResponse, User } from '../../types/api/user.types';
+import { ApiError } from '../../utils/ApiError';
 import { updateUserFactory } from '../../utils/factories/patchUserFactory'
 import { userFactory } from '../../utils/factories/userFactory';
 import { logger } from '../../utils/logger';
@@ -75,8 +76,9 @@ test.describe('Users API', ()=>{
             'Should have thrown ApiError')
         }
         catch(e: unknown){
-            if(e instanceof Error){
-                logger.error(e.message);
+            if(e instanceof ApiError){
+                expect(e.statusCode).toBe(404)
+                return
             }
             throw e;
         }

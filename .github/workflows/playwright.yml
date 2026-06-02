@@ -76,3 +76,4 @@ jobs:
           name: test-failures
           path: test-results/failures.json
           retention-days: 30
+          if-no-files-found: ignore 

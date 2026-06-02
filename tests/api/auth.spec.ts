@@ -74,8 +74,9 @@ test.describe('Auth API', ()=>{
             )
 
         } catch(e: unknown){
-            if(e instanceof Error){
-                logger.error(e.message);
+            if(e instanceof ApiError){
+                expect(e.statusCode).toBe(404)
+                return
             }
             throw e;
         }
