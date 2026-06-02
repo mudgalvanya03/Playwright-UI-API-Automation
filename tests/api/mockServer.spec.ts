@@ -1,6 +1,7 @@
 
 import { MockUserSchema } from "../../schemas/api/mock.schema";
 import { MockOrder, MockUser } from "../../types/api/mock.types";
+import { ApiError } from "../../utils/ApiError";
 import { logger } from "../../utils/logger";
 import { validateSchema } from "../../utils/validateSchema";
 import { test, expect } from '../fixtures/apiFixtures'
@@ -55,8 +56,9 @@ test('MOCK-TC01: Create user then create order for that user - Complete CRUD for
             'Should have thrown ApiError'
         )
     } catch(e: unknown){
-            if(e instanceof Error){
-                logger.error(e.message);
+            if(e instanceof ApiError){
+                expect(e.statusCode).toBe(404)
+                return
             }
             throw e;
         }
