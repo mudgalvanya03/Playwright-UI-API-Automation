@@ -3,7 +3,6 @@ import { CreateUserRequest, CreateUserResponse, EmptyCreateUserResponse, GetUser
 import { ApiError } from '../../utils/ApiError';
 import { updateUserFactory } from '../../utils/factories/patchUserFactory'
 import { userFactory } from '../../utils/factories/userFactory';
-import { logger } from '../../utils/logger';
 import { validateSchema } from '../../utils/validateSchema';
 import { test, expect } from '../fixtures/apiFixtures'
 import {epic,feature,story,severity,tag, step} from 'allure-js-commons'
@@ -35,7 +34,7 @@ test.describe('Users API', ()=>{
         // dispose it yourself when done
          await apiContext.dispose()
      }) */
-
+    test.describe.configure({ mode: 'parallel' })
     test('API-TC01: Get user details successfully ', async ({ apiClient }) => {
         await epic('User Management')
         await feature('Get User')

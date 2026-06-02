@@ -5,8 +5,8 @@ import { ApiError } from '../../utils/ApiError'
 import { LoginRequest, LoginResponse} from '../../types/api/auth.types'
 import { loginFactory } from '../../utils/factories/loginFactory'
 import {epic,feature,story,severity,tag} from 'allure-js-commons'
-import { logger } from '../../utils/logger'
 
+test.describe.configure({ mode: 'parallel' })
 test.describe('Auth API', ()=>{
     
     let client : ApiClient

@@ -2,7 +2,6 @@
 import { MockUserSchema } from "../../schemas/api/mock.schema";
 import { MockOrder, MockUser } from "../../types/api/mock.types";
 import { ApiError } from "../../utils/ApiError";
-import { logger } from "../../utils/logger";
 import { validateSchema } from "../../utils/validateSchema";
 import { test, expect } from '../fixtures/apiFixtures'
 import {epic,feature,story,severity,tag} from 'allure-js-commons'
