@@ -51,7 +51,8 @@ jobs:
 
       - name: Run API tests
         run: ENV=local npx playwright test tests/API/users.spec.ts tests/API/auth.spec.ts tests/API/contracts.spec.ts --project=chromium
-
+      - name: Restore mock server database
+        run: cp mock-server/db.backup.json mock-server/db.json
       - name: Start mock server
         run: npm run mock-server &
 
