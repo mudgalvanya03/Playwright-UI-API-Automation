@@ -22,7 +22,17 @@ export class ApiClient implements IApiClient{
             ...extraHeaders
         }
     }
-    
+    /**
+     * Executes a GET request against the configured API base URL, merging auth headers and default headers before sending. Wraps the request in retry logic if retryOptions are configured.
+     *
+     * @param url - The endpoint path relative to the base API URL
+     * @param headers - Optional additional headers to merge with defaults
+     * @returns Promise resolving to the typed response body
+     * @throws {ApiError} When the response status is not ok
+     *
+     * @example
+     * const user = await apiClient.get<User>('/users/2');
+     */
     async get<T>(url: string, headers?: Record<string, string>):Promise<T>{
         const finalHeaders = await this.buildHeaders(headers)
         logger.info("Sending GET request",{ url, method:"GET"});
@@ -44,6 +54,19 @@ export class ApiClient implements IApiClient{
         return makeRequest()        
     }
 
+        /**
+     * Executes a PUT request against the configured API base URL, merging auth headers and default headers before sending. Wraps the request in retry logic if retryOptions are configured.
+     * 
+     *
+     * @param url - The endpoint path relative to the base API URL
+     * @param body - The data payload to send in the PUT request fully typed as B
+     * @param headers - Optional additional headers to merge with defaults
+     * @returns Promise resolving to the typed response body
+     * @throws {ApiError} When the response status is not ok
+     *
+     * @example
+     * const user = await apiClient.put<CreateUserResponse, CreateUserRequest>('/users/2', requestBody);
+     */
     async put<T, B>(url: string, body: B, headers?: Record<string, string>):Promise<T> {
         const finalHeaders = await this.buildHeaders(headers)
         logger.info("Sending Put Request", {url, body, method:'PUT'});
@@ -65,6 +88,18 @@ export class ApiClient implements IApiClient{
         return makeRequest()
     }
 
+        /**
+     * Executes a POST request against the configured API base URL, merging auth headers and default headers before sending. Wraps the request in retry logic if retryOptions are configured.
+     *
+     * @param url - The endpoint path relative to the base API URL
+     * @param body - The data payload to send in the POST request fully typed as B
+     * @param headers - Optional additional headers to merge with defaults
+     * @returns Promise resolving to the typed response body
+     * @throws {ApiError} When the response status is not ok
+     *
+     * @example
+     * const user = await apiClient.post<CreateUserResponse, CreateUserRequest>('/users/2', requestBody);
+     */
     async post<T, B>(url: string, body: B, headers?: Record<string, string>):Promise<T>{
         const finalHeaders = await this.buildHeaders(headers)
         logger.info("Sending Post Request", {url, body, method:'POST'});
@@ -86,6 +121,18 @@ export class ApiClient implements IApiClient{
         return makeRequest()
     }
 
+        /**
+     * Executes a PATCH request against the configured API base URL, merging auth headers and default headers before sending. Wraps the request in retry logic if retryOptions are configured.
+     *
+     * @param url - The endpoint path relative to the base API URL
+     * @param body - The data payload to send in the PATCH request fully typed as B
+     * @param headers - Optional additional headers to merge with defaults
+     * @returns Promise resolving to the typed response body
+     * @throws {ApiError} When the response status is not ok
+     *
+     * @example
+     * const user = await apiClient.patch<CreateUserResponse, CreateUserRequest>('/users/2', requestBody);
+     */
     async patch<T, B>(url: string, body: B, headers?: Record<string,string>):Promise<T>{
         const finalHeaders = await this.buildHeaders(headers)
         logger.info("Sending Patch Request", {url, body, method:'PATCH'});
@@ -107,6 +154,17 @@ export class ApiClient implements IApiClient{
         return makeRequest()
     }
 
+        /**
+     * Executes a DELETE request against the configured API base URL, merging auth headers and default headers before sending. Wraps the request in retry logic if retryOptions are configured.
+     *
+     * @param url - The endpoint path relative to the base API URL
+     * @param headers - Optional additional headers to merge with defaults
+     * @returns Promise that resolves when deletion is confirmed
+     * @throws {ApiError} When the response status is not ok
+     *
+     * @example
+     * await apiClient.delete('/users/2');
+     */
     async delete(url: string, headers?: Record<string, string>):Promise<void>{
         const finalHeaders = await this.buildHeaders(headers)
         logger.info("Sending delete Request", {url, method:'DELETE'});
